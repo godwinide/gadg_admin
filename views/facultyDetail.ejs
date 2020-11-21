@@ -1,0 +1,49 @@
+<div class="faculty-detail container mx-auto">
+    <h1><%= faculty.name %></h1>
+
+    <div class="row m-t-25">
+        <div class="col-sm-6 col-lg-3 m-2">
+            <div class="overview-item overview-item--c2">
+                <div class="overview__inner">
+                    <div class="overview-box clearfix">
+                        <div class="icon">
+                            <i class="zmdi zmdi-play-circle"></i>
+                        </div>
+                        <div class="text">
+                            <h2><%= faculty.coursesID.length %></h2>
+                            <span>Total Courses</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrollable">
+        <table class="table table-borderless table-striped table-earning">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Instructor</th>
+                    <th>Topics</th>
+                    <th>Published</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% courses.map(course => {%>
+                    <tr>
+                        <td><%=course.title %></td>
+                        <td><%=course.instructor%></td>
+                        <td><%=course.topics.length %></td>
+                        <td><%=String(course.published) %></td>
+                        <td>
+                            <a class="btn btn-dark text-white" href="/courseDetail/<%=course._id%>">More</a>
+                        </td>
+                    </tr>
+                <%})%>
+            </tbody>
+        </table>
+    </div>
+    
+</div>

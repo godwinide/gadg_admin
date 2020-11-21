@@ -1,0 +1,83 @@
+<div class="faculty-detail container mx-auto">
+    <h1><%= course.title %></h1>
+
+    <div class="row m-t-25">
+        <div class="col-sm-6 col-lg-3 m-2">
+            <div class="overview-item overview-item--c2">
+                <div class="overview__inner">
+                    <div class="overview-box clearfix">
+                        <div class="icon">
+                            <i class="zmdi zmdi-play-circle"></i>
+                        </div>
+                        <div class="text">
+                            <h2><%= course.topics.length %></h2>
+                            <span>Topics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="info my-4">
+        <% if(course.published){%>
+            <form method="POST" action="/publishstate/unpub" class="mb-2">
+                <input type="hidden" name="titleSlug" value="<%=course.titleSlug%>"/>
+                <button class="btn btn-secondary text-wite">Unpublish</button>
+            </form>
+        <%} else {%>
+            <form method="POST" action="/publishstate/pub" class="mb-2">
+                <input type="hidden" name="titleSlug" value="<%=course.titleSlug%>"/>
+                <button class="btn btn-secondary text-wite">Publish</button>
+            </form>
+        <%}%>
+        <a href="/createTopic/<%=course.titleSlug%>" class="mr-5 mb-2 btn btn-primary">
+            <i class="fas fa-plus"></i>
+            Create Topic
+        </a>
+        <form method="POST" action="/deleteCourse" class="mb-2">
+            <input type="hidden" name="titleSlug" value="<%=course.titleSlug%>"/>
+            <button class="btn btn-danger text-wite align-right">
+                <i class="fas fa-trash"></i>
+                Delete Course</button>
+        </form>
+
+    </div>
+    <div class="mb-3">
+        <%-include("./partials/messages") %>
+    </div>
+    <div class="scrollable">
+        <h2 class="my-2">Topics</h2>
+        <table class="table table-borderless table-striped table-earning">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Action</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% course.topics.map(topic => {%>
+                    <tr>
+                        <td><%= topic.title %></td>
+                        <td>
+                            <a class="btn btn-dark text-white" href="/editTopic/<%=course.titleSlug%>/<%=topic.id%>">
+                                <i class="fas fa-pencil"></i>
+                                Edit</a>
+                        </td>
+                        <td>
+                            <form action="/deleteTopic" method="POST">
+                                <input type="hidden" name="id" value="<%=topic.id%>" />
+                                <input type="hidden" name="titleSlug" value="<%=course.titleSlug%>" />
+                                <button href="/" class="btn btn-danger">
+                                    Delete
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>                    
+                        </td>
+                    </tr>
+                <%})%>
+            </tbody>
+        </table>
+    </div>
+    
+</div>

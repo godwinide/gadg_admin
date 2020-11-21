@@ -1,0 +1,33 @@
+<div class="container mx-auto p-5">
+    <h1>Courses</h1>
+</div>
+<div class="scrollable">
+    <a class="btn btn-info text-white m-2" href="/createCourse">
+        <i class="fas fa-plus"></i>
+        Create Course
+    </a>
+    <table class="table table-borderless table-striped table-earning">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Instructor</th>
+                <th>Topics</th>
+                <th>Published</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% courses.map(course => {%>
+                <tr>
+                    <td><%=course.title %></td>
+                    <td><%=course.instructor%></td>
+                    <td><%=course.topics.length %></td>
+                    <td><%=String(course.published) %></td>
+                    <td>
+                        <a class="btn btn-dark text-white" href="/course/<%=course.titleSlug%>">More</a>
+                    </td>
+                </tr>
+            <%})%>
+        </tbody>
+    </table>
+</div>

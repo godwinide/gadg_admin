@@ -1,0 +1,38 @@
+<div class="card-header">
+    <strong>Update Topic</strong>
+    <h4><%=topic.title%></h4>
+</div>
+<div class="card card-body">
+    <form id="topicForm" method="POST" class="form-horizontal" action="/editTopic">
+        <%-include("./partials/messages") %>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <label for="hf-name" class=" form-control-label">Title</label>
+            </div>
+            <div class="col-12 col-md-9">
+                <input required type="name" value="<%=typeof topic.title != 'undefined' ? topic.title : ''%>" id="title"
+                 name="title" placeholder="Enter topic title..." class="form-control">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <label for="textarea-input" class=" form-control-label">Description</label>
+            </div>
+            <div class="col-12 col-md-9">
+            <textarea required
+                name="desc"
+                id="desc" 
+                rows="9" placeholder="Content..." 
+                class="form-control"><%= typeof topic.desc != 'undefined' ? topic.desc : '' %>
+            </textarea>
+            </div>
+        </div>
+        <input type="hidden" name="id" id="id" value="<%=topic.id%>" />
+        <input type="hidden" name="titleSlug" value="<%=course.titleSlug%>" />
+        <div class="card-footer">
+            <button id="uploadBtn" type="submit" class="btn btn-primary btn-sm">
+                <i class="fa fa-dot-circle-o"></i> Update
+            </button>
+        </div>
+    </form>
+</div>

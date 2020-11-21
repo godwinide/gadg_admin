@@ -1,0 +1,16 @@
+.main-content{
+    padding-top: 1em !important;
+}
+
+.scrollable{
+    overflow-x: auto !important;
+}
+
+.login-wrap{
+    width: 100vw;
+    height: 100vh;
+}
+
+.login-wrap > h1 {
+    color: #fff !important;
+}

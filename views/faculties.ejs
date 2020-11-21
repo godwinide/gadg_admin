@@ -1,0 +1,40 @@
+<div class="container mx-auto p-5">
+    <h1>Faculties</h1>
+</div>
+<div class="scrollable">
+    <a class="btn btn-info text-white m-2" href="/createFaculty">
+        <i class="fas fa-plus"></i>
+        Create Faculty
+    </a>
+    <table class="table table-borderless table-striped table-earning">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Courses</th>
+                <th>Action</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% faculties.map(faculty => {%>
+                <tr>
+                    <td><%=faculty.name%></td>
+                    <td><%=faculty.coursesID.length%></td>
+                    <td>
+                        <a class="btn btn-dark text-white" href="/editFaculty/<%=faculty.nameSlug%>">Edit</a>
+                    </td>
+                    <td>
+                        <form action="/deleteFaculty" method="POST">
+                            <input type="hidden" name="nameSlug" value="<%=faculty.nameSlug%>" />
+                            <button href="/" class="btn btn-danger">
+                                Delete
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            <%})%>
+        </tbody>
+    </table>
+    
+</div>
