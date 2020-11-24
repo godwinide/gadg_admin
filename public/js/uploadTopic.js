@@ -51,7 +51,7 @@ const upload = e => {
     axios.post(".", formData, config)
       .then(res => {
         clearAll()
-        // form.reset();
+        form.reset();
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
         document.querySelector("#warningWrap").innerHTML = `
