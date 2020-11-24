@@ -3,16 +3,14 @@ const form = document.querySelector("#topicForm");
 const upload = e => {
     e.preventDefault();
     const title = form.querySelector("#title");
-    const banner = form.querySelector("#thumbnail");
     const pdf = form.querySelector("#pdf");
     const audio = form.querySelector("#audio");
     const video = form.querySelector("#video");
     const desc = form.querySelector("#desc");
-    const courseID = form.querySelector("#courseID");
-    const thumbnail = banner.files[0]; 
+    const courseID = form.querySelector("#courseID"); 
     const pdf_file = pdf.files[0];
     const audio_file = audio.files[0];
-    const video_file = video.files[0];
+    const video_file = video.files[0] || '';
 
     const uploadBtn = document.querySelector("#uploadBtn");
     uploadBtn.style.display="none"
@@ -21,10 +19,9 @@ const upload = e => {
 
     const formData = new FormData();
     formData.append("title", title.value)
-    formData.append("thumbnail", thumbnail)
     formData.append("pdf", pdf_file)
     formData.append("audio", audio_file)
-    formData.append("video", video_file)
+    if(video)formData.append("video", video_file)
     formData.append("desc", desc.value);
     formData.append("courseID", courseID.value.split(" ")[0]);
 
@@ -54,7 +51,9 @@ const upload = e => {
     axios.post(".", formData, config)
       .then(res => {
         clearAll()
-        form.reset();
+        // form.reset();
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
         document.querySelector("#warningWrap").innerHTML = `
         <div class="alert alert-success" role="alert">
             ${res.data.msg}

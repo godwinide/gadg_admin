@@ -9,7 +9,7 @@ const Bucket = "gadgacademia";
 
 module.exports.upload = async (Body, Key, cb) =>{
     // create bucket if it doesn't exits
-    s3.createBucket({Bucket}, (err) => err && console.log(err));
+    // s3.createBucket({Bucket}, (err) => err && console.log(err));
     // upload image
     s3.upload({Bucket, Body, Key}, null, async (err, data) => {
         if(data){
