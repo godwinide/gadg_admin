@@ -5,8 +5,8 @@ const s3 = new AWS.S3({
     secretAccessKey: process.env.SecretAccessKey
 });
 
-const Bucket = "gadgacademia";
-const Bucket2 = "gadgacademia2";
+const Bucket = "gadg";
+const Bucket2 = "gadg2";
 
 module.exports.upload = (Body, Key, cb=null) =>{
     return new Promise((resolve,reject)=>{
