@@ -16,17 +16,11 @@ module.exports = app => {
     app.use("/deleteCourse", require("./routes/deleteCourse"));
     app.use("/deleteTopic", require("./routes/deleteTopic"));
     app.use("/deleteFaculty", require("./routes/deleteFaculty"));
+    app.use("/editFaculty", require("./routes/editFaculty"));
+    app.use("/editCourse", require("./routes/editCourse"));
     app.use("/editTopic", require("./routes/editTopic"));
+    // AUTH ROUTES
     app.use("/login", require("./routes/login"));
-
-    // API ROUTES
-    // courses
-    app.use("/api/courses", require("./routes/api/course/course"))
-    app.use("/api/faculties", require("./routes/api/course/faculty"))
-    // users
-    app.use("/api/users/register", require("./routes/api/users/register"))
-    app.use("/api/users/auth", require("./routes/api/users/auth"))
-
     // 404
     app.use("*", require("./routes/notfound"));
 }

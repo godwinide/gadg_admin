@@ -1,0 +1,33 @@
+<div class="form-wrap mx-2">
+    <div class="card">
+        <div class="card-header">
+            <strong>Update Faculty</strong>
+        </div>
+        <div class="card-body card-block">
+            <form method="POST" class="form-horizontal" action="/editFaculty" enctype="multipart/form-data">
+                <%-include("./partials/messages") %>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="hf-name" class=" form-control-label">Faculty Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input value="<%=typeof faculty.name !== 'undefined' ? faculty.name:''%>" type="name" id="hf-name" name="name" placeholder="Enter faculty name..." class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="file-input" class=" form-control-label">Banner Image</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input type="file" id="file-input" name="thumbnail" class="form-control-file" accept="image/*">
+                    </div>
+                </div>
+                <input type="hidden" name="nameSlug" value="<%=faculty.nameSlug%>"/>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> update
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>

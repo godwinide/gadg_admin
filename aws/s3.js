@@ -6,17 +6,38 @@ const s3 = new AWS.S3({
 });
 
 const Bucket = "gadgacademia";
+const Bucket2 = "gadgacademia2";
 
-module.exports.upload = async (Body, Key, cb) =>{
-    // create bucket if it doesn't exits
-    // s3.createBucket({Bucket}, (err) => err && console.log(err));
-    // upload image
-    s3.upload({Bucket, Body, Key}, null, async (err, data) => {
-        if(data){
-            cb(data);
-        }
-        if(err){
-            console.error(err);
-        }
+module.exports.upload = (Body, Key, cb=null) =>{
+    return new Promise((resolve,reject)=>{
+        s3.upload({Bucket, Body, Key}, null, async (err, data) => {
+            if(data){
+                if(cb){
+                    cb(data);                    
+                }
+                return resolve(data)
+            }
+            if(err){
+                console.error(err);
+                return reject(err);
+            }
+        })
+    })
+}
+
+module.exports.uploadPDF = (Body, Key, cb=null) =>{
+    return new Promise((resolve,reject)=>{
+        s3.upload({Bucket2, Body, Key}, null, async (err, data) => {
+            if(data){
+                if(cb){
+                    cb(data);                    
+                }
+                return resolve(data)
+            }
+            if(err){
+                console.error(err);
+                return reject(err);
+            }
+        })
     })
 }

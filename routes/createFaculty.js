@@ -34,19 +34,17 @@ router.post("/", ensureAuthenticated, async(req,res) => {
             const ext_name = thumbnail.name.split(".")
             const Key = uuid.v4() + "." + ext_name[ext_name.length-1];
             const Body = fs.readFileSync(thumbnail.tempFilePath);
-
-            upload(Body, Key, async data => {
-                if(data){
-                    _newFaculty.thumbnail = data.Location;
-                    // save course to db
-                    const _new_faculty = new Faculty(_newFaculty);
-                    await _new_faculty.save()
-                    return res.render("createFaculty",{
-                        success_msg: 'Faculty created successfully.',
-                        ...context
-                    })
-                }
-            })
+            const data = await upload(Body, Key);
+            if(data){
+                _newFaculty.thumbnail = data.Location;
+                // save course to db 
+                const _new_faculty = new Faculty(_newFaculty);
+                await _new_faculty.save()
+                return res.render("createFaculty",{
+                    success_msg: 'Faculty created successfully.',
+                    ...context
+                })
+            }
         }
     }catch(err){
         return res.render("createFaculty",{error_msg:"Internal server error", ...context})

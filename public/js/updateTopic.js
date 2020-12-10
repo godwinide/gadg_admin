@@ -1,13 +1,12 @@
-const form = document.querySelector("#topicForm");
+const form = document.querySelector("#filesForm");
 
 const upload = e => {
     e.preventDefault();
-    const title = form.querySelector("#title");
     const pdf = form.querySelector("#pdf");
     const audio = form.querySelector("#audio");
     const video = form.querySelector("#video");
-    const desc = form.querySelector("#desc");
     const courseID = form.querySelector("#courseID"); 
+    const topicID = form.querySelector("#topicID"); 
     const pdf_file = pdf.files[0];
     const audio_file = audio.files[0];
     const video_file = video.files[0] || '';
@@ -18,12 +17,11 @@ const upload = e => {
     uploadMsg.innerText="uploading course files to server";;
 
     const formData = new FormData();
-    formData.append("title", title.value)
     formData.append("pdf", pdf_file)
     formData.append("audio", audio_file)
     if(video)formData.append("video", video_file)
-    formData.append("desc", desc.value);
-    formData.append("courseID", courseID.value.split(" ")[0]);
+    formData.append("titleSlug", courseID.value.split(" ")[0]);
+    formData.append("id", topicID.value.split(" ")[0]);
 
     const clearAll = () => {
         document.querySelector("#progressBar").style.width = "0%";
@@ -48,12 +46,10 @@ const upload = e => {
         }
       }
     
-    axios.post(".", formData, config)
+    axios.post("/editTopic/files", formData, config)
       .then(res => {
         clearAll()
         form.reset();
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
         document.querySelector("#warningWrap").innerHTML = `
         <div class="alert alert-success" role="alert">
             ${res.data.msg}
@@ -62,8 +58,6 @@ const upload = e => {
       })
       .catch(err => {
           clearAll();
-          document.body.scrollTop = 0;
-          document.documentElement.scrollTop = 0;
           document.querySelector("#warningWrap").innerHTML = `
           <div class="alert alert-warning" role="alert">
               ${err.response.data.errors[0].msg}

@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-12 col-md-9">
                         <select name="facultyID" id="select" class="form-control" required>
-                            <option value="0">Please select faculty</option>
+                            <option>Please select faculty</option>
                             <% faculties.map(faculty => {%>
                                 <option value="<%=faculty._id%> <%= faculty.name%>"><%= faculty.name %></option>
                             <%})%>

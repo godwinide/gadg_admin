@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const {upload} = require("../aws/s3");
+const {upload, uploadPDF} = require("../aws/s3");
 const uuid = require("uuid")
 const fs = require("fs");
 const {ensureAuthenticated} = require("../config/auth");
@@ -35,9 +35,6 @@ router.post("/", async (req,res) => {
         const video_mimetypes = ["video/mp4", "video/mkv"];
         const pdf_mimetypes = ["application/pdf", "image/png"];
         // validate image mimetype
-        // if(!video_mimetypes.includes(video.mimetype)){
-        //     errors.push({msg:"please provide a video, only mp4, 3gp, and avi videos are allowed!"});
-        // }
         if(!pdf_mimetypes.includes(pdf.mimetype)){
             errors.push({msg:"invalid pdf!"});
         }
@@ -65,8 +62,7 @@ router.post("/", async (req,res) => {
                 const pdf_stream = fs.readFileSync(pdf.tempFilePath);
 
                 // upload pdf
-                upload(pdf_stream, pdf_key, data => {
-                    console.log("one")
+                uploadPDF(pdf_stream, pdf_key, data => {
                     new_topic.pdf = data.Location;
                     // upload audio
                     upload(audio_stream, audio_key, async data => {
@@ -87,7 +83,7 @@ router.post("/", async (req,res) => {
                                 })
                                 return res.status(200).json({
                                     success: true,
-                                    msg: "Topic creatd successfully"
+                                    msg: "Topic created successfully"
                                 })
                             })
                             return;

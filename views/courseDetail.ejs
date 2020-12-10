@@ -34,11 +34,16 @@
             <i class="fas fa-plus"></i>
             Create Topic
         </a>
+        <br/>
+        <a href="/editCourse/<%=course.titleSlug%>" class="mr-5 mb-2 btn btn-warning">
+            <i class="fas fa-pen"></i>
+            Edit
+        </a>
         <form method="POST" action="/deleteCourse" class="mb-2">
             <input type="hidden" name="titleSlug" value="<%=course.titleSlug%>"/>
             <button class="btn btn-danger text-wite align-right">
                 <i class="fas fa-trash"></i>
-                Delete Course</button>
+                Delete</button>
         </form>
 
     </div>
