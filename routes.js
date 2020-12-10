@@ -5,6 +5,7 @@ module.exports = app => {
     app.use("/courses", require("./routes/courses"));
     app.use("/admins", require("./routes/admins"));
     app.use("/students", require("./routes/students"));
+    app.use("/students/details", require("./routes/studentDetail"));
     app.use("/sales", require("./routes/sales"));
     app.use("/createFaculty", require("./routes/createFaculty"));
     app.use("/createCourse", require("./routes/createCourse"));
