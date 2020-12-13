@@ -75,13 +75,8 @@ router.post("/", ensureAuthenticated, async(req,res) => {
                         try{
                             // save course to db
                             const _new_course = new Course(new_course);
-                            const course = await _new_course.save()
-                            const faculty = await Faculty.findById(new_course.facultyID);
-                            const coursesID = faculty.coursesID
-                            await faculty.updateOne({
-                                coursesID: [...coursesID, course._id]
-                            })
-                                return res.render("createCourse",{success_msg:"course created successfully.", faculties, title:"create course"})
+                            await _new_course.save()
+                            return res.render("createCourse",{success_msg:"course created successfully.", faculties, title:"create course"})
                             }catch(err){
                                 errors.push({msg:"Internal server error"})
                                 console.log(err)
