@@ -10,7 +10,6 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Courses</th>
                 <th>Action</th>
                 <th>Action</th>
             </tr>
@@ -19,7 +18,6 @@
             <% faculties.map(faculty => {%>
                 <tr>
                     <td><%=faculty.name%></td>
-                    <td><%=faculty.coursesID.length%></td>
                     <td>
                         <a class="btn btn-dark text-white" href="/editFaculty/<%=faculty.nameSlug%>">Edit</a>
                     </td>
