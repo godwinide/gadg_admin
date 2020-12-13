@@ -45,25 +45,25 @@
                 </div>
                 <div class="row form-group">
                     <div class="col col-md-3">
-                        <label for="hf-pricePerTopic" class=" form-control-label">Price Per Topic</label>
+                        <label for="hf-pricePerTopic" class=" form-control-label">Price for one topic</label>
                     </div>
                     <div class="col-12 col-md-9">
                         <input required type="number"
                         value="<%= typeof pricePerTopic != 'undefined' ? pricePerTopic : '' %>"
                         name="pricePerTopic" id="hf-pricePerTopic" 
-                        placeholder="Price per course topic"
+                        placeholder="Price for one topic"
                         class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col col-md-3">
-                        <label for="hf-pricePerTopic" class=" form-control-label">Discount</label>
+                        <label for="hf-pricePerTopic" class=" form-control-label">Discount in Percent(%)</label>
                     </div>
                     <div class="col-12 col-md-9">
                         <input required type="number"
                         value="<%= typeof discount != 'undefined' ? discount : '' %>"
                         name="discount" id="hf-discount" 
-                        placeholder="Percentage off on full purchase eg 25"
+                        placeholder="from 1 to 100"
                         class="form-control">
                     </div>
                 </div>
