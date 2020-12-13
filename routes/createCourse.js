@@ -6,8 +6,6 @@ const {ensureAuthenticated} = require("../config/auth");
 const Course = require("../model/Course");
 const Faculty = require("../model/Faculty");
 
-
-
 router.get("/", ensureAuthenticated, async (req,res) => {
     const faculties = await Faculty.find({});
     const context = {title:"create course", faculties}
@@ -93,7 +91,5 @@ router.post("/", ensureAuthenticated, async(req,res) => {
         }
     }
 })
-
-
 
 module.exports = router;

@@ -27,7 +27,7 @@ module.exports.upload = (Body, Key, cb=null) =>{
 
 module.exports.uploadPDF = (Body, Key, cb=null) =>{
     return new Promise((resolve,reject)=>{
-        s3.upload({Bucket2, Body, Key}, null, async (err, data) => {
+        s3.upload({Bucket: Bucket2, Body, Key}, null, async (err, data) => {
             if(data){
                 if(cb){
                     cb(data);                    
