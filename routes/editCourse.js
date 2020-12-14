@@ -24,7 +24,6 @@ router.post("/", async (req,res) => {
     try{
         const {
             title, 
-            facultyID, 
             instructor, 
             pricePerTopic, 
             discount, 
@@ -32,17 +31,17 @@ router.post("/", async (req,res) => {
             price,
             discountPrice,
             description} = req.body;
+        console.log(req.body)
         const errors = [];
         const faculties = await Faculty.find({});
         const course = await Course.findOne({titleSlug})
-        if(!title || !facultyID || !instructor || !pricePerTopic || !discount || !description){
+        if(!title || !instructor || !pricePerTopic || !discount || !description){
             errors.push({msg:"Please fill all fields!"});
-            const context = {course,title:"Edit Course", faculties};
+            const context = {course,title:"Edit Course", faculties, errors};
             return res.render("editCourse", context);
         }else{
             const update = {
                 title, 
-                facultyID, 
                 instructor, 
                 pricePerTopic, 
                 discount,
@@ -65,26 +64,14 @@ router.post("/", async (req,res) => {
                 const data = await upload(Body, Key);
                 if(data){
                     update.thumbnail = data.Location;
-                    // update faculty
-                    await course.updateOne({
-                        ...update
-                    })
-                    const context = {course:{...course, ...update},title:"Edit Course", faculties};
-                    return res.render("editCourse",{
-                        success_msg: 'Course updated successfully.',
-                        ...context
-                    })
                 }
-            }else{
-                await course.updateOne({
-                    ...update
-                })
-                const context = {course:{...course, ...update},title:"Edit Course", faculties};
-                return res.render("editCourse",{
-                    success_msg: 'Course updated successfully.',
-                    ...context
-                })
             }
+            await course.updateOne({
+                ...update
+            })
+            req.flash("success_msg", "course updated successfully")
+            return res.redirect("/editCourse/"+course.titleSlug)
+        
         }
     }catch(err){
         console.log(err);
