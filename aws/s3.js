@@ -1,8 +1,8 @@
 const AWS = require("aws-sdk");
 
 const s3 = new AWS.S3({
-    accessKeyId: process.env.AccessKeyID2,
-    secretAccessKey: process.env.SecretAccessKey2
+    accessKeyId: process.env.AccessKeyID,
+    secretAccessKey: process.env.SecretAccessKey
 });
 
 const Bucket = "gadg6";
