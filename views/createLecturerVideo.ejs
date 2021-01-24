@@ -1,0 +1,84 @@
+<div class="card-header">
+    <div class="card-header">
+        <strong>Create Lecturer Video</strong>
+    </div>
+    <div class="card card-body">
+    <!-- files -->
+    <form id="filesForm2" method="POST" class="form-horizontal mt-2" action="/lecturers/createVideo" enctype="multipart/form-data">
+        <div id="warningWrap">
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <label for="hf-pricePerTopic" class=" form-control-label">Price</label>
+            </div>
+            
+            <div class="col-12 col-md-9">
+                <input required type="number"
+                value="<%= typeof price != 'undefined' ? price : '' %>"
+                name="price" id="price" 
+                placeholder="Price"
+                class="form-control">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <label for="hf-pricePerTopic" class=" form-control-label">Lecturer's share(%):</label>
+            </div>
+            
+            <div class="col-12 col-md-9">
+                <input required type="number"
+                value="<%= typeof share != 'undefined' ? share : '' %>"
+                name="share" id="share" 
+                min="0"
+                max="100"
+                placeholder="the share in percentage this lecturer gets on every purchase."
+                class="form-control">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <label for="select" class=" form-control-label">Lecturer</label>
+            </div>
+            <div class="col-12 col-md-9">
+                <select name="lecturerID" id="lecturerID" class="form-control" required>
+                    <option>Please select lecturer</option>
+                    <% lecturers.map(lecturer => {%>
+                        <option value="<%= lecturer._id%>"><%= lecturer.firstname + " " + lecturer.lastname %></option>
+                    <%})%>
+                </select>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <label for="file-input" class=" form-control-label">Thumbnail</label>
+            </div>
+            <div class="col-12 col-md-9">
+                <input required type="file" id="thumbnail" name="thumbnail" class="form-control-file" accept="image/*">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-3">
+                <label for="file-input" class=" form-control-label">Video</label>
+            </div>
+            <div class="col-12 col-md-9">
+                <input type="file" id="video" name="video" class="form-control-file" accept="video/*">
+            </div>
+        </div>
+        <input type="hidden" name="topicID" id="topicID" value="<%=topic.id%>" />
+        <input type="hidden" name="courseID" id="courseID" value="<%=course._id%>" />
+        <div class="card-footer">
+            <div class="progress">
+                <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+            </div>
+            </div>
+            <p id="uploadMsg"></p>
+        </div>
+        <div class="card-footer">
+            <button id="uploadBtn" type="submit" class="btn btn-primary btn-sm">
+                <i class="fa fa-dot-circle-o"></i> Create
+            </button>
+        </div>
+    </form>
+</div>
+
+<script src="/js/createVideo.js"></script>

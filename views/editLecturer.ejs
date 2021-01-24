@@ -1,0 +1,57 @@
+<div class="form-wrap mx-2">
+    <div class="card">
+        <div class="card-header">
+            <strong>Edit Lecturer</strong>
+        </div>
+        <div class="card-body card-block">
+            <form action="/lecturers/editLecturer" method="POST" class="form-horizontal">
+                <%-include("./partials/messages") %>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="hf-name" class=" form-control-label">First Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input required value="<%= typeof firstname !== 'undefined' ? firstname : '' %>" type="name" id="hf-name" name="firstname" placeholder="Enter first name..." class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="lastname" class=" form-control-label">Last Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input value="<%= typeof lastname !== 'undefined' ? lastname : '' %>" required type="name" id="lastname" name="lastname" placeholder="Enter last name..." class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="lastname" class=" form-control-label">Email</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input value="<%= typeof email !== 'undefined' ? email : '' %>" required type="name" id="lastname" name="email" placeholder="Enter email..." class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="lastname" class=" form-control-label">Commission</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input value="<%= typeof commission !== 'undefined' ? commission : '' %>" required type="name" id="lastname" name="commission" placeholder="Enter phone number..." class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="lastname" class=" form-control-label">Phone</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input value="<%= typeof phone !== 'undefined' ? phone : '' %>" required type="name" id="lastname" name="phone" placeholder="Enter phone number..." class="form-control">
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="<%=id%>">
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Update
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>

@@ -87,4 +87,37 @@
     </form>
 </div>
 
+
+
+
+<div class="card-header">
+    <strong>Videos by other Professors</strong>
+    </div>
+    <div class="card card-body">
+        <div class="scrollable">
+            <a class="btn btn-info text-white m-2" href="/lecturers/createLecturerVideo/<%=course._id%>/<%=topic.id%>">
+                <i class="fas fa-plus"></i>
+                Add video
+            </a>
+            <table class="table table-borderless table-striped table-earning">
+                <thead>
+                    <tr>
+                        <th>Lecturer's Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% topic.lecturers && topic.lecturers.map(vid => {%>
+                        <tr>
+                            <td><%=vid.lecturer.firstname +" "+ vid.lecturer.lastname %></td>
+                            <td>
+                                 <a href="/lecturers/deleteVideo/<%=vid.topicID%>/<%=vid.courseID%>/<%=vid.id%>/<%=vid.lecturer._id%>" class="btn btn-danger">Delete</a><a class="btn btn-dark text-white" href="/lecturers/deleteVideo/<%=vid.lecturer._id%>">Delete</a>
+                            </td>
+                        </tr>
+                    <%})%>
+                </tbody>
+            </table>    
+    </div>
+</div>
+
 <script src="/js/updateTopic.js"></script>

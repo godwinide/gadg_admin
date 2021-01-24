@@ -1,12 +1,12 @@
 const AWS = require("aws-sdk");
 
 const s3 = new AWS.S3({
-    accessKeyId: process.env.AccessKeyID,
-    secretAccessKey: process.env.SecretAccessKey
+    accessKeyId: process.env.AccessKeyID2,
+    secretAccessKey: process.env.SecretAccessKey2
 });
 
-const Bucket = "gadg";
-const Bucket2 = "gadg2";
+const Bucket = "gadg6";
+const Bucket2 = "gadg6";
 
 module.exports.upload = (Body, Key, cb=null) =>{
     return new Promise((resolve,reject)=>{
