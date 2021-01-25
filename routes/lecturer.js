@@ -6,7 +6,6 @@ const bcrypt = require("bcryptjs");
 const fs = require("fs");
 const {upload} = require("../aws/s3");
 const uuid = require("uuid");
-const { cache } = require("ejs");
 
 router.get("/", ensureAuthenticated, async (req,res) => {
     try{
@@ -272,6 +271,7 @@ router.get("/delete/:id", async(req,res) => {
     try{
         const id = req.params.id;
         await Lecturer.deleteOne({_id:id});
+        return res.redirect("/lecturers")
     }catch(err){
         console.log(err);
     }
