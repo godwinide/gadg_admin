@@ -5,11 +5,15 @@ const upload = e => {
     const title = form.querySelector("#title");
     const pdf = form.querySelector("#pdf");
     const audio = form.querySelector("#audio");
+    const audio2 = form.querySelector("#audio2");
+    const audio3 = form.querySelector("#audio3");
     const video = form.querySelector("#video");
     const desc = form.querySelector("#desc");
     const courseID = form.querySelector("#courseID"); 
     const pdf_file = pdf.files[0];
     const audio_file = audio.files[0];
+    const audio_file2 = audio2.files[0];
+    const audio_file3 = audio3.files[0];
     const video_file = video.files[0] || '';
 
     const uploadBtn = document.querySelector("#uploadBtn");
@@ -21,6 +25,8 @@ const upload = e => {
     formData.append("title", title.value)
     formData.append("pdf", pdf_file)
     formData.append("audio", audio_file)
+    formData.append("audio2", audio_file2)
+    formData.append("audio3", audio_file3)
     if(video)formData.append("video", video_file)
     formData.append("desc", desc.value);
     formData.append("courseID", courseID.value.split(" ")[0]);
@@ -43,7 +49,7 @@ const upload = e => {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
           document.querySelector("#progressBar").style.width = Math.floor(percentCompleted) + "%";
           if(percentCompleted > 99){
-                uploadMsg.innerText="uploading course files to AWS";;
+                uploadMsg.innerText="uploading files to AWS";;
           }
         }
       }

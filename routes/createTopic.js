@@ -31,13 +31,10 @@ router.post("/", async (req,res) => {
         errors.push({msg: "Please provide a thumbnail and a video"});
         return_errors(400);
     }else{
-        const {video, audio, pdf} = req.files;
+        // const {video, audio, pdf} = req.files;
         const video_mimetypes = ["video/mp4", "video/mkv"];
         const pdf_mimetypes = ["application/pdf", "image/png"];
         // validate image mimetype
-        if(!pdf_mimetypes.includes(pdf.mimetype)){
-            errors.push({msg:"invalid pdf!"});
-        }
         if(errors.length > 0){
             return_errors(400);
         }else{
@@ -48,61 +45,71 @@ router.post("/", async (req,res) => {
                     desc,
                     id: uuid.v4(),
                 };
-                // video upload refs
-                const video_ext_name = video ? video.name.split(".") : '';
-                const video_key = video ? uuid.v4() + "." + video_ext_name[video_ext_name.length-1] : '';
-                const video_stream = video ? fs.readFileSync(video.tempFilePath) : '';
-                // audio upload refs
-                const audio_ext_name = audio.name.split(".")
-                const audio_key = uuid.v4() + "." + audio_ext_name[audio_ext_name.length-1];
-                const audio_stream = fs.readFileSync(audio.tempFilePath);
-                // pdf upload refs
-                const pdf_ext_name = pdf.name.split(".")
-                const pdf_key = uuid.v4() + "." + pdf_ext_name[pdf_ext_name.length-1];
-                const pdf_stream = fs.readFileSync(pdf.tempFilePath);
 
-                // upload pdf
-                uploadPDF(pdf_stream, pdf_key, data => {
-                    new_topic.pdf = data.Location;
-                    // upload audio
-                    upload(audio_stream, audio_key, async data => {
+                if(req.files.pdf){
+                    const {pdf} = req.files;
+                    const ext_name = pdf.name.split(".")
+                    const Key = uuid.v4() + "." + ext_name[ext_name.length-1];
+                    const Body = fs.readFileSync(pdf.tempFilePath);
+                    const data = await uploadPDF(Body, Key);
+                    if(data){
+                        new_topic.pdf = data.Location;
+                    }
+                }
+                if(req.files.audio){
+                    const {audio} = req.files;
+                    const ext_name = audio.name.split(".")
+                    const Key = uuid.v4() + "." + ext_name[ext_name.length-1];
+                    const Body = fs.readFileSync(audio.tempFilePath);
+                    const data = await upload(Body, Key);
+                    if(data){
                         new_topic.audio = data.Location;
-                        // upload video if any
-                        if(video_key){
-                            upload(video_stream, video_key, async data => {
-                                new_topic.video = data.Location;                                    
-                                // save course to db
-                                const course = await Course.findById(courseID);
-                                const topics = course.topics;
-                                new_topic.price = course.pricePerTopic;
-                                const newPrice = ((course.topics.length * course.pricePerTopic)+course.pricePerTopic)
-                                await course.updateOne({
-                                    topics: [...topics, new_topic],
-                                    price: newPrice,
-                                    discountPrice: newPrice * ((100-course.discount)/100)
-                                })
-                                return res.status(200).json({
-                                    success: true,
-                                    msg: "Topic created successfully"
-                                })
-                            })
-                            return;
-                        }
-                        // save course to db
-                        const course = await Course.findById(courseID);
-                        const topics = course.topics;
-                        new_topic.price = course.pricePerTopic;
-                        const newPrice = ((course.topics.length * course.pricePerTopic)+course.pricePerTopic)
-                        await course.updateOne({
-                            topics: [...topics, new_topic],
-                            price: newPrice,
-                            discountPrice: newPrice * ((100-course.discount)/100)
-                        })
-                        return res.status(200).json({
-                            success: true,
-                            msg: "Topic creatd successfully"
-                        })
-                    })
+                    }
+                }
+                if(req.files.audio2){
+                    const {audio2} = req.files;
+                    const ext_name = audio2.name.split(".")
+                    const Key = uuid.v4() + "." + ext_name[ext_name.length-1];
+                    const Body = fs.readFileSync(audio2.tempFilePath);
+                    const data = await upload(Body, Key);
+                    if(data){
+                        new_topic.audio2 = data.Location;
+                    }
+                }
+                if(req.files.audio3){
+                    const {audio3} = req.files;
+                    const ext_name = audio3.name.split(".")
+                    const Key = uuid.v4() + "." + ext_name[ext_name.length-1];
+                    const Body = fs.readFileSync(audio3.tempFilePath);
+                    const data = await upload(Body, Key);
+                    if(data){
+                        new_topic.audio3 = data.Location;
+                    }
+                }
+                if(req.files.video){
+                    const {video} = req.files;
+                    const ext_name = video.name.split(".")
+                    const Key = uuid.v4() + "." + ext_name[ext_name.length-1];
+                    const Body = fs.readFileSync(video.tempFilePath);
+                    const data = await upload(Body, Key);
+                    if(data){
+                        new_topic.video = data.Location;
+                    }
+                }
+
+                // save course to db
+                const course = await Course.findById(courseID);
+                const topics = course.topics;
+                new_topic.price = course.pricePerTopic;
+                const newPrice = ((course.topics.length * course.pricePerTopic)+course.pricePerTopic)
+                await course.updateOne({
+                    topics: [...topics, new_topic],
+                    price: newPrice,
+                    discountPrice: newPrice * ((100-course.discount)/100)
+                })
+                return res.status(200).json({
+                    success: true,
+                    msg: "Topic creatd successfully"
                 })
 
             }catch(err){

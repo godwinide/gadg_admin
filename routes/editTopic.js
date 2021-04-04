@@ -78,6 +78,26 @@ router.post("/files", async (req,res) => {
                     update.pdf = data.Location;
                 }
             }
+            if(req.files.audio2){
+                const {audio2} = req.files;
+                const ext_name = audio2.name.split(".")
+                const Key = uuid.v4() + "." + ext_name[ext_name.length-1];
+                const Body = fs.readFileSync(audio2.tempFilePath);
+                const data = await upload(Body, Key);
+                if(data){
+                    update.audio2 = data.Location;
+                }
+            }
+            if(req.files.audio3){
+                const {audio3} = req.files;
+                const ext_name = audio3.name.split(".")
+                const Key = uuid.v4() + "." + ext_name[ext_name.length-1];
+                const Body = fs.readFileSync(audio3.tempFilePath);
+                const data = await upload(Body, Key);
+                if(data){
+                    update.audio3 = data.Location;
+                }
+            }
             if(req.files.audio){
                 const {audio} = req.files;
                 const ext_name = audio.name.split(".")
